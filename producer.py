@@ -42,7 +42,7 @@ class CSVProducer:
         with open(self.csv_path) as csvfile:
             print("I am opening the csv file")
             for row in csvfile: 
-                print(row)
+                print("Sending row: ", row)
                 self.q.put(row)
 
                 if random.random() < 0.1:  # 10% chance to add jitter
