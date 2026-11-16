@@ -44,6 +44,12 @@ class CSVProducer:
             for row in csvfile: 
                 print(row)
                 self.q.put(row)
+
+                if random.random() < 0.1:  # 10% chance to add jitter
+                    print("Jitterrringggg")
+                    jitter = random.randrange(10) 
+                    time.sleep(jitter)
+                    
                 time.sleep(self.delay)
 
 
