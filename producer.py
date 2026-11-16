@@ -12,7 +12,7 @@ import random
 from queue import Queue
 
 class CSVProducer:
-    def __init__(self, csv_path, q, delay=1.0):
+    def __init__(self, csv_path: str, q: Queue, delay=1.0):
         """
         PARAMETERS:
         - csv_path : path to the CSV file (str)
@@ -21,6 +21,11 @@ class CSVProducer:
 
        TODO : Implement the __init__ method to initialize the producer.
        """
+        self.csv_path = csv_path
+        self.q = q
+        self.delay = delay
+        print("I am created ! - The Producer")
+        
     def start(self):
         """
         This method should:
@@ -34,7 +39,12 @@ class CSVProducer:
         - Implement the streaming behavior.
         - Optional: Add random jitter to simulate irregular network delays.
         """
-      
+        with open(self.csv_path) as csvfile:
+            print("I am opening the csv file")
+            for row in csvfile: 
+                print(row)
+                self.q.put(row)
+                time.sleep(self.delay)
 
 
 # Debugging test
@@ -46,4 +56,7 @@ if __name__ == "__main__":
     Expected behavior:
     - It should print rows from the CSV file every 'delay' seconds.
     """
+    test_queue = Queue()
+    test_producer = CSVProducer("transactions.csv", test_queue)
+    test_producer.start()
    
